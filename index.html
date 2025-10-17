@@ -1,183 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Moms in Project Management (MiPM)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moms in Project Management (MiPM) — Motherhood is Project Management</title>
+  <meta name="description" content="MiPM helps mothers turn everyday project skills into professional opportunities with training, mentorship, certification support, and job‑readiness pathways." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Editable brand tokens */
+      --brand-primary:#7C3AED; /* purple */
+      --brand-secondary:#10B981; /* green */
+      --brand-accent:#F59E0B; /* amber */
+      --bg:#0B1020;           /* deep navy */
+      --bg-soft:#0f1530;      /* softer navy */
+      --text:#E6ECF5;         /* light text */
+      --muted:#B6C1D1;        /* muted text */
+      --card:#0E1630;         /* card background */
+      --border:rgba(255,255,255,.12);
+      --radius:18px;          /* corners */
+      --shadow:0 12px 40px rgba(0,0,0,.35);
+      --maxw:1140px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.25), transparent 50%), radial-gradient(900px 600px at 110% 20%, rgba(16,185,129,.18), transparent 40%), var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;line-height:1.6}
+    img{max-width:100%;display:block}
+    .container{max-width:var(--maxw);padding:0 22px;margin:0 auto}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:50;background:rgba(11,16,32,.6);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .brandmark{width:36px;height:36px;border-radius:10px;background:conic-gradient(from 180deg, var(--brand-primary), var(--brand-secondary), var(--brand-accent), var(--brand-primary));box-shadow:0 6px 18px rgba(124,58,237,.35)}
+    .logotype{font-family:Poppins, Inter, Arial;font-weight:800;color:#fff;letter-spacing:.2px}
+    .logotype small{display:block;font-weight:600;color:var(--muted);font-size:.7rem;margin-top:-4px}
+    .nav a{color:var(--text);text-decoration:none;margin:0 10px;font-weight:600}
+    .cta{display:inline-block;padding:10px 14px;border-radius:12px;background:linear-gradient(90deg,var(--brand-primary),var(--brand-secondary));color:#fff}
+
+    /* HERO */
+    header.hero{position:relative;overflow:hidden}
+    .hero-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center;padding:64px 0}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.04);color:var(--muted);font-weight:700;font-size:.85rem}
+    h1{font-family:Poppins, Inter, Arial;font-weight:800;line-height:1.15;margin:.5rem 0 1rem;font-size:clamp(2rem,4vw,3.2rem)}
+    .lead{color:var(--muted);font-size:1.075rem;margin-bottom:18px}
+    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .btn{display:inline-block;padding:14px 18px;border-radius:14px;text-decoration:none;font-weight:800}
+    .btn-primary{background:linear-gradient(90deg,var(--brand-primary),var(--brand-secondary));color:white}
+    .btn-secondary{border:2px solid var(--brand-primary);color:#fff}
+    .hero-card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px}
+
+    .glow{position:absolute;inset:auto;right:-140px;top:-120px;width:520px;height:520px;background:radial-gradient(closest-side, rgba(124,58,237,.35), transparent);filter:blur(10px);pointer-events:none}
+    .glow2{position:absolute;left:-160px;bottom:-160px;width:560px;height:560px;background:radial-gradient(closest-side, rgba(16,185,129,.24), transparent);filter:blur(10px);pointer-events:none}
+
+    /* VALUE STRIP */
+    .strip{padding:16px 0 24px}
+    .strip-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+    .chip{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:12px;padding:12px 14px;background:rgba(255,255,255,.04)}
+
+    /* PROGRAM CARDS PREVIEW */
+    .programs{padding:32px 0 10px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+    .card h3{margin:.25rem 0 .35rem;font-size:1.1rem}
+    .card p{margin:.25rem 0;color:var(--muted)}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);margin-top:24px}
+    .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding:18px 0;color:var(--muted)}
+    .foot a{color:var(--muted);text-decoration:none;margin-right:12px}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-wrap{grid-template-columns:1fr;padding:44px 0}
+    }
+  
+    /* === New visual hero styles to mimic reference layout === */
+    .hero-visual{position:relative;min-height:86vh;display:flex;align-items:flex-end;padding:0}
+    .hero-visual .hero-inner{position:relative;z-index:1;width:100%;}
+    .hero-visual .backdrop{position:absolute;inset:0;background:url('./Assets/hero.jpg') center/cover no-repeat;}
+    .hero-visual .veil{position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,16,32,.30) 0%, rgba(11,16,32,.55) 40%, rgba(11,16,32,.80) 100%), linear-gradient(90deg, rgba(11,16,32,.55) 0%, rgba(11,16,32,.15) 40%, rgba(11,16,32,.55) 100%);}
+    .display{font-family:Poppins, Inter, Arial;letter-spacing:-.5px;line-height:.92;margin:0;}
+    .display-top{display:block;font-weight:800;font-size:clamp(3rem,10vw,9rem);color:#fff}
+    .display-bottom{display:block;font-weight:600;font-size:clamp(2rem,8vw,6rem);color:#E6ECF5;opacity:.95}
+    .hero-text{padding:min(7vw,80px) 0;}
+    .hero-text .lead{max-width:720px;font-size:1.15rem;color:var(--muted)}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+
+    /* nav buttons like reference */
+    .nav .links .ghost{border:1px solid var(--border);border-radius:12px;padding:8px 12px}
+    .nav .links .solid{background:var(--brand-accent);color:#111827;border-radius:12px;padding:10px 14px;font-weight:800}
+
+    @media (max-width: 980px){
+      .display-top{font-size:clamp(2.2rem,12vw,4.6rem)}
+      .display-bottom{font-size:clamp(1.6rem,10vw,3.2rem)}
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-
-  <!-- Hero Section -->
-  <section class="relative bg-gradient-to-r from-purple-600 to-purple-400 text-white">
-    <div class="max-w-7xl mx-auto px-6 py-20 flex flex-col items-center text-center">
-      <h1 class="text-4xl md:text-6xl font-extrabold mb-6">Moms in Project Management</h1>
-      <p class="text-lg md:text-2xl mb-8">Empowering Mothers to Turn Everyday Skills into Professional Project Management Success</p>
-      <a href="#contact" class="px-8 py-4 bg-white text-purple-700 font-semibold rounded-xl shadow-lg hover:bg-gray-200 transition">
-        Get Involved
+<body>
+  <!-- NAV -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a href="#home" class="logo" aria-label="MiPM home">
+        <span class="brandmark" aria-hidden="true"></span>
+        <span class="logotype">MiPM <small>Moms in Project Management</small></span>
       </a>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="max-w-7xl mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold text-purple-700 mb-6 text-center">About Us</h2>
-    <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto">
-      Moms in Project Management (MiPM) is a nonprofit organization dedicated to empowering mothers with Project Management education, mentorship, and career support. We believe that motherhood builds powerful skills—planning, budgeting, scheduling, problem-solving—that deserve recognition in the workforce.
-    </p>
-  </section>
-
-  <!-- Mission & Vision Section -->
-  <section id="mission" class="bg-gray-100 py-16">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold text-purple-700 mb-6">Our Mission & Vision</h2>
-      <p class="text-lg text-gray-700 mb-6">Our mission is to empower 10,000 mothers with project management skills in the next five years and secure 1,000 professional certifications within two years.</p>
-      <p class="text-lg text-gray-700">Our vision is a world where motherhood is recognized as a foundation for leadership, organization, and innovation in the professional space.</p>
-    </div>
-  </section>
-
-  <!-- Impact & Goals Section -->
-  <section id="impact" class="max-w-7xl mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold text-purple-700 mb-12 text-center">Our Impact & Goals</h2>
-    <div class="grid gap-8 md:grid-cols-3 text-center">
-      <div class="bg-white p-8 shadow-lg rounded-2xl">
-        <h3 class="text-4xl font-extrabold text-purple-600">10,000+</h3>
-        <p class="mt-2 text-gray-600">Mothers to be trained in the next 5 years</p>
-      </div>
-      <div class="bg-white p-8 shadow-lg rounded-2xl">
-        <h3 class="text-4xl font-extrabold text-purple-600">1,000</h3>
-        <p class="mt-2 text-gray-600">Professional certifications targeted in 2 years</p>
-      </div>
-      <div class="bg-white p-8 shadow-lg rounded-2xl">
-        <h3 class="text-4xl font-extrabold text-purple-600">50+</h3>
-        <p class="mt-2 text-gray-600">Partnerships with organizations for returnships</p>
+      <div class="links">
+        <a href="#programs">Programs</a>
+        <a href="#community">Community</a>
+        <a href="#impact">Impact</a>
+        <a class="ghost" href="#signup">Sign Up</a>
+        <a class="solid" href="#login">Log In ↗</a>
       </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="bg-purple-50 py-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-purple-700 mb-12 text-center">How It Works</h2>
-      <div class="grid gap-10 md:grid-cols-4">
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">1. Join</h3>
-          <p class="text-gray-600">Sign up and connect with our growing community of mothers and mentors.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">2. Learn</h3>
-          <p class="text-gray-600">Access courses, workshops, and resources tailored to moms re-entering the workforce.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">3. Practice</h3>
-          <p class="text-gray-600">Join Agile Mother Labs or mentorship circles to apply skills in real-world settings.</p>
-        </div>
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">4. Succeed</h3>
-          <p class="text-gray-600">Get placed in internships, returnships, or full-time roles with our partner employers.</p>
+  <!-- HERO -->
+  <header id="home" class="hero hero-visual" role="banner">
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1 class="display">
+          <span class="display-top">Stronger</span>
+          <span class="display-bottom">together</span>
+        </h1>
+        <p class="lead">MiPM helps mothers turn everyday leadership into professional opportunities — with <strong>training</strong>, <strong>mentorship</strong>, certification support, and <strong>job‑readiness</strong> pathways.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#signup">Join the community</a>
+          <a class="btn btn-secondary" href="#innovate">Explore Innovate with Oma</a>
         </div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- Offerings Section -->
-  <section id="offerings" class="bg-gray-100 py-16">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-purple-700 mb-12 text-center">Our Core Programs</h2>
-      <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-        <!-- Education -->
-        <div class="bg-white rounded-2xl shadow-lg p-6">
-          <img src="Assets/4.png" alt="Education" class="rounded-lg mb-4">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">Education & Certification</h3>
-          <p class="text-gray-600">Foundational courses and certification support (PMP, CAPM, Agile, Scrum) with affordable access to study materials.</p>
-        </div>
-        <!-- Mentorship -->
-        <div class="bg-white rounded-2xl shadow-lg p-6">
-          <img src="Assets/1.png" alt="Mentorship" class="rounded-lg mb-4">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">Mentorship & Coaching</h3>
-          <p class="text-gray-600">Peer mentorship circles and access to professional project managers for personalized guidance and career coaching.</p>
-        </div>
-        <!-- Job Readiness -->
-        <div class="bg-white rounded-2xl shadow-lg p-6">
-          <img src="Assets/2.png" alt="Job Readiness" class="rounded-lg mb-4">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">Job Readiness</h3>
-          <p class="text-gray-600">Resume building, interview prep, and direct pipelines to employers through returnships and full-time roles.</p>
-        </div>
-        <!-- Community -->
-        <div class="bg-white rounded-2xl shadow-lg p-6">
-          <img src="Assets/3.png" alt="Community" class="rounded-lg mb-4">
-          <h3 class="text-xl font-semibold text-purple-600 mb-2">Community & Advocacy</h3>
-          <p class="text-gray-600">An online support network, monthly webinars, events, and advocacy for inclusive and flexible workplaces.</p>
-        </div>
-      </div>
+  <!-- PROGRAMS PREVIEW -->
+  <section id="programs" class="container programs" aria-labelledby="programs-title">
+    <h2 id="programs-title" style="font-family:Poppins;margin:0 0 10px">Programs</h2>
+    <div class="cards">
+      <article class="card" id="innovate">
+        <h3>Innovate with Oma — Hands‑on AI Productivity</h3>
+        <p>4 live sessions over 2 weeks. Learn practical AI to save 1–2 hours every week at home and work.</p>
+        <a class="cta" href="https://chiomadevs.github.io/Innovate_with_Oma/" style="display:inline-block;margin-top:8px">Open program →</a>
+      </article>
+      <article class="card">
+        <h3>Certification Pathways</h3>
+        <p>PMP/CAPM/Agile cohorts with accountability and curated resources.</p>
+      </article>
+      <article class="card">
+        <h3>Mentorship & Coaching</h3>
+        <p>Peer circles + office hours led by practicing PMs.</p>
+      </article>
     </div>
   </section>
 
-  <!-- Agile Mother Labs Section -->
-  <section id="agile-labs" class="max-w-7xl mx-auto px-6 py-16">
-    <div class="bg-purple-50 border border-purple-200 rounded-2xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold text-purple-700 mb-6 text-center">Introducing Agile Mother Labs</h2>
-      <p class="text-lg text-gray-700 mb-6 text-center">
-        A groundbreaking initiative where mothers re-entering the workforce practice Agile and Scrum in real-world sprint environments. Through partnerships with startups and nonprofits, moms gain hands-on experience, peer support, and portfolio-ready evidence of their leadership and skills.
-      </p>
-      <div class="flex justify-center">
-        <a href="#contact" class="px-8 py-4 bg-purple-600 text-white font-semibold rounded-xl shadow-lg hover:bg-purple-700 transition">
-          Join Agile Mother Labs
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="bg-gray-100 py-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-purple-700 mb-12 text-center">What Mothers Are Saying</h2>
-      <div class="grid gap-8 md:grid-cols-3">
-        <div class="bg-white p-6 rounded-2xl shadow-lg">
-          <p class="text-gray-600 italic mb-4">"Before MiPM, I didn’t know how to explain my 7 years as a stay-at-home mom. Now, I have a resume and portfolio that employers respect."</p>
-          <h3 class="text-purple-600 font-semibold">— Jessica, USA</h3>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow-lg">
-          <p class="text-gray-600 italic mb-4">"Joining Agile Mother Labs gave me the confidence to run my first real sprint. I landed an interview within weeks!"</p>
-          <h3 class="text-purple-600 font-semibold">— Anita, India</h3>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow-lg">
-          <p class="text-gray-600 italic mb-4">"As a mother in my 50s, I felt invisible. MiPM recognized my community leadership and helped me showcase it as valuable experience."</p>
-          <h3 class="text-purple-600 font-semibold">— Maria, Spain</h3>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="bg-gray-100 py-16">
-    <div class="max-w-3xl mx-auto px-6">
-      <h2 class="text-3xl font-bold text-purple-700 mb-6 text-center">Contact Us</h2>
-      <form action="YOUR_FORM_ENDPOINT_HERE" method="POST" class="bg-white shadow-lg rounded-2xl p-8 space-y-6">
-        <div>
-          <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-          <input type="text" id="name" name="name" required class="w-full mt-2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" />
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" id="email" name="email" required class="w-full mt-2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" />
-        </div>
-        <div>
-          <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
-          <textarea id="message" name="message" rows="4" required class="w-full mt-2 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
-        </div>
-        <button type="submit" class="w-full py-3 px-6 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 transition">Send Message</button>
+  <!-- EMAIL CAPTURE -->
+  <section id="signup" class="container" style="padding:28px 0 18px">
+    <div class="hero-card" role="form" aria-labelledby="signup-title">
+      <h2 id="signup-title" style="font-family:Poppins;margin:.25rem 0 .5rem">Get updates & opportunities</h2>
+      <p class="lead" style="margin-top:0">We’ll send cohort dates, study group invites, and partner roles. Unsubscribe anytime.</p>
+      <!-- Replace this simple form with your Mailchimp/ConvertKit embed. Keep the same fields if possible. -->
+      <form id="list" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <label style="grid-column:1/2">
+          <span>Name</span>
+          <input name="name" required placeholder="Your name" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:#fff">
+        </label>
+        <label style="grid-column:2/3">
+          <span>Email</span>
+          <input type="email" name="email" required placeholder="you@example.com" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:#fff">
+        </label>
+        <label style="grid-column:1/3">
+          <span>Where are you on your journey?</span>
+          <select name="stage" required style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:#fff">
+            <option value="" disabled selected>Select one</option>
+            <option>Returning to work</option>
+            <option>Switching careers</option>
+            <option>First PM role</option>
+          </select>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" required> I agree to receive email updates.</label>
+        <button class="btn btn-primary" type="submit">Join the community</button>
+        <p id="ok" class="lead" style="display:none">Thanks! Please check your inbox to confirm.</p>
       </form>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-purple-700 text-white py-6 mt-10">
-    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-      <p>&copy; 2025 Moms in Project Management. All rights reserved.</p>
-      <p class="mt-2 md:mt-0">Contact: <a href="mailto:hello@momsinpm.org" class="underline">hello@momsinpm.org</a></p>
+  <footer class="container">
+    <div class="foot">
+      <div>© <span id="year"></span> Moms in Project Management</div>
+      <div>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </div>
     </div>
   </footer>
 
+  <script>
+    // Simple success message for the lightweight form (replace with Mailchimp/ConvertKit embed for production)
+    const f=document.getElementById('list');
+    f?.addEventListener('submit',e=>{e.preventDefault();document.getElementById('ok').style.display='block';f.reset();});
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
 </body>
 </html>
