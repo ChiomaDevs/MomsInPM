@@ -1698,115 +1698,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// ========== MODAL SYSTEM ==========
+// ========== MODAL / FORM SYSTEM ==========
+// Opens the Google Form directly in a new tab for reliable submission
 function openModal(type) {
-  const modal = document.getElementById('modal-' + type);
-  if (modal) {
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-}
-
-function closeModal(type) {
-  const modal = document.getElementById('modal-' + type);
-  if (modal) {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-}
-
-function closeModalOnOverlay(event, type) {
-  if (event.target === event.currentTarget) closeModal(type);
-}
-
-// Close on Escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.active').forEach(modal => {
-      modal.classList.remove('active');
-    });
-    document.body.style.overflow = '';
-  }
-});
-
-// ========== FORM SUBMISSION ==========
-function handleSubmit(event, formType) {
-  event.preventDefault();
-
-  const form = event.target;
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
-
-  // Send email notification via mailto (fallback) or Google Form
-  const googleFormUrl = GOOGLE_FORM_URLS[formType];
-
-  if (googleFormUrl && googleFormUrl !== 'YOUR_' + formType.toUpperCase() + '_GOOGLE_FORM_URL') {
-    // If Google Form URL is configured, submit via hidden iframe
-    submitToGoogleForm(googleFormUrl, data, formType);
+  const url = GOOGLE_FORM_URLS[type];
+  if (url) {
+    window.open(url, '_blank');
   } else {
-    // Fallback: open email with form data
-    sendViaEmail(formType, data);
+    // Fallback to email if no Google Form URL configured
+    const labels = {
+      signup: 'Program Application',
+      volunteer: 'Volunteer / Mentor Sign-Up',
+      donate: 'Donation Interest',
+      partner: 'Partnership Inquiry'
+    };
+    window.open('mailto:hello@momsinpm.org?subject=' + encodeURIComponent('MIPM: ' + (labels[type] || 'Inquiry')), '_blank');
   }
-
-  // Show success message
-  document.getElementById(formType + '-form-area').style.display = 'none';
-  document.getElementById(formType + '-success').classList.add('show');
-
-  // Reset after 5 seconds
-  setTimeout(() => {
-    document.getElementById(formType + '-form-area').style.display = 'block';
-    document.getElementById(formType + '-success').classList.remove('show');
-    form.reset();
-  }, 8000);
-}
-
-function submitToGoogleForm(url, data, formType) {
-  // Create a hidden iframe to submit to Google Forms without redirect
-  const iframe = document.createElement('iframe');
-  iframe.name = 'hidden_iframe_' + formType;
-  iframe.style.display = 'none';
-  document.body.appendChild(iframe);
-
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = url;
-  form.target = iframe.name;
-
-  Object.entries(data).forEach(([key, value]) => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = key;
-    input.value = value;
-    form.appendChild(input);
-  });
-
-  document.body.appendChild(form);
-  form.submit();
-
-  // Cleanup
-  setTimeout(() => {
-    document.body.removeChild(form);
-    document.body.removeChild(iframe);
-  }, 3000);
-}
-
-function sendViaEmail(formType, data) {
-  const labels = {
-    signup: 'Program Application',
-    volunteer: 'Volunteer / Mentor Sign-Up',
-    donate: 'Donation Interest',
-    partner: 'Partnership Inquiry'
-  };
-
-  const subject = encodeURIComponent('MIPM Website: ' + labels[formType]);
-  const body = encodeURIComponent(
-    Object.entries(data)
-      .map(([key, value]) => key.replace(/_/g, ' ').toUpperCase() + ': ' + value)
-      .join('\n\n')
-  );
-
-  window.open('mailto:hello@momsinpm.org?subject=' + subject + '&body=' + body, '_blank');
-}
-</script>
-</body>
-</html>
