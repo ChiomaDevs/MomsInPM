@@ -4,10 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Moms in Project Management — Because Every Mom is a Project Manager</title>
+<meta name="description" content="MIPM helps mothers earn their CAPM certification for free through a 12-week structured study program. Cohort 1 is live with 15+ moms enrolled.">
 <link rel="icon" type="image/png" href="Assets/favicon.png">
 <link rel="icon" type="image/x-icon" href="Assets/favicon.ico">
 <link rel="apple-touch-icon" href="Assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,71 +26,51 @@
   --gray-100: #E8E0ED;
   --gray-600: #5A4D63;
   --gray-800: #2D1F36;
-  --gradient-brand: linear-gradient(135deg, var(--purple-deep) 0%, var(--magenta) 50%, var(--cyan) 100%);
-  --gradient-warm: linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%);
-  --gradient-glow: linear-gradient(135deg, var(--magenta) 0%, var(--cyan) 100%);
   --green: #10B981;
-  --red: #EF4444;
+  --gradient-brand: linear-gradient(135deg, #4A0072 0%, #A0147C 50%, #00D4FF 100%);
+  --gradient-warm: linear-gradient(135deg, #6B0F8A 0%, #D4177A 100%);
+  --gradient-glow: linear-gradient(135deg, #A0147C 0%, #00D4FF 100%);
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --nav-height: 72px;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; }
+
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   color: var(--gray-800);
   background: var(--white);
-  overflow-x: hidden;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
-/* ========== UTILITY ========== */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-.section-label {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--magenta);
-  margin-bottom: 12px;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 800;
-  color: var(--purple-deep);
-  line-height: 1.15;
-  margin-bottom: 20px;
-}
-.section-desc {
-  font-size: 1.1rem;
-  color: var(--gray-600);
-  max-width: 600px;
-  line-height: 1.7;
-}
-
-/* ========== ANIMATED GRADIENT BLOBS ========== */
+/* Animated background blobs */
 .blob {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.18;
+  opacity: 0.12;
   pointer-events: none;
   z-index: 0;
+  animation: blobFloat 20s ease-in-out infinite;
 }
-.blob-1 { width: 500px; height: 500px; background: var(--magenta); top: -150px; right: -100px; animation: float 8s ease-in-out infinite; }
-.blob-2 { width: 400px; height: 400px; background: var(--cyan); bottom: -100px; left: -100px; animation: float 10s ease-in-out infinite reverse; }
-.blob-3 { width: 300px; height: 300px; background: var(--purple); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: float 12s ease-in-out infinite; }
+.blob-1 { width: 500px; height: 500px; background: var(--purple); top: -100px; right: -100px; animation-delay: 0s; }
+.blob-2 { width: 400px; height: 400px; background: var(--cyan); bottom: -50px; left: -100px; animation-delay: -7s; }
+.blob-3 { width: 350px; height: 350px; background: var(--magenta); top: 50%; left: 50%; animation-delay: -14s; }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-30px) scale(1.05); }
+@keyframes blobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -40px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(15px, 35px) scale(1.02); }
 }
 
-/* ========== SCROLL ANIMATIONS ========== */
+/* Reveal animations */
 .reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(32px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.visible {
   opacity: 1;
@@ -98,266 +80,311 @@ body {
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
 
-/* ========== NAV ========== */
-nav {
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== NAV ===== */
+.nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  height: var(--nav-height);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(106,15,138,0.08);
   z-index: 1000;
-  padding: 16px 0;
-  transition: all 0.3s ease;
-  background: rgba(255,255,255,0);
+  transition: box-shadow 0.3s;
 }
-nav.scrolled {
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 1px 20px rgba(74,0,114,0.08);
-  padding: 10px 0;
-}
+.nav.scrolled { box-shadow: 0 2px 24px rgba(74,0,114,0.08); }
 .nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .nav-logo {
   display: flex;
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: var(--purple-deep);
+  color: var(--gray-800);
+  font-weight: 700;
+  font-size: 1.05rem;
 }
-.nav-logo-icon {
+.logo-mark {
   width: 38px;
   height: 38px;
-  background: var(--gradient-brand);
+  background: var(--gradient-warm);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.2rem;
 }
-.nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
 .nav-links a {
   text-decoration: none;
   color: var(--gray-600);
+  font-size: 0.92rem;
   font-weight: 500;
-  font-size: 0.9rem;
   transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--purple-deep); }
+.nav-links a:hover { color: var(--purple); }
 .nav-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
   background: var(--gradient-warm);
   color: white !important;
-  padding: 10px 24px;
   border-radius: 50px;
-  font-weight: 600 !important;
-  transition: transform 0.2s, box-shadow 0.2s !important;
-  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.88rem;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .nav-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(160,20,124,0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(107,15,138,0.3);
 }
 
-/* Mobile menu */
-.mobile-toggle {
+/* Hamburger */
+.hamburger {
   display: none;
+  flex-direction: column;
+  gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  width: 32px;
-  height: 24px;
-  position: relative;
+  padding: 4px;
   z-index: 1001;
 }
-.mobile-toggle span {
-  display: block;
-  width: 100%;
+.hamburger span {
+  width: 24px;
   height: 2.5px;
-  background: var(--purple-deep);
+  background: var(--gray-800);
   border-radius: 2px;
-  position: absolute;
-  left: 0;
-  transition: all 0.3s ease;
+  transition: transform 0.3s, opacity 0.3s;
 }
-.mobile-toggle span:nth-child(1) { top: 0; }
-.mobile-toggle span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-.mobile-toggle span:nth-child(3) { bottom: 0; }
-.mobile-toggle.active span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
-.mobile-toggle.active span:nth-child(2) { opacity: 0; }
-.mobile-toggle.active span:nth-child(3) { bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* ========== HERO ========== */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--white);
+  padding: 24px;
+  border-bottom: 1px solid var(--gray-100);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  z-index: 999;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a {
+  display: block;
+  padding: 14px 0;
+  text-decoration: none;
+  color: var(--gray-800);
+  font-weight: 500;
+  font-size: 1.05rem;
+  border-bottom: 1px solid var(--gray-50);
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu .nav-cta {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links { display: none; }
+}
+
+/* ===== HERO ===== */
 .hero {
   position: relative;
-  min-height: 100vh;
+  padding: 140px 0 80px;
+  overflow: hidden;
+  min-height: 90vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
-  padding: 120px 0 80px;
 }
-.hero-content {
-  position: relative;
-  z-index: 1;
+.hero-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(160,20,124,0.08);
-  border: 1px solid rgba(160,20,124,0.15);
+  background: rgba(16,185,129,0.1);
+  color: var(--green);
   padding: 8px 16px;
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--magenta);
   margin-bottom: 24px;
 }
-.hero-badge-dot {
+.pulse-dot {
   width: 8px;
   height: 8px;
-  background: var(--magenta);
+  background: var(--green);
   border-radius: 50%;
-  animation: pulse-dot 2s ease-in-out infinite;
+  animation: pulse 2s ease-in-out infinite;
 }
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.3); }
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(16,185,129,0); }
 }
+
 .hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-family: var(--font-display);
   font-weight: 900;
-  line-height: 1.08;
-  color: var(--purple-deep);
-  margin-bottom: 24px;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.15;
+  color: var(--gray-800);
+  margin-bottom: 20px;
 }
-.hero h1 .highlight {
-  background: var(--gradient-glow);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+.hero h1 span { background: var(--gradient-warm); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .hero-sub {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   color: var(--gray-600);
   line-height: 1.7;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   max-width: 520px;
 }
-.hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
 .btn-primary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  padding: 14px 30px;
   background: var(--gradient-warm);
   color: white;
-  padding: 16px 36px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
   border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(160,20,124,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(107,15,138,0.35);
 }
 .btn-secondary {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  padding: 14px 30px;
   background: transparent;
-  color: var(--purple-deep);
-  padding: 16px 36px;
+  color: var(--purple);
+  border: 2px solid var(--gray-100);
   border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.95rem;
   text-decoration: none;
-  font-weight: 700;
-  font-size: 1rem;
-  border: 2px solid rgba(74,0,114,0.2);
-  transition: all 0.2s;
   cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
 }
 .btn-secondary:hover {
-  border-color: var(--purple-deep);
-  background: rgba(74,0,114,0.04);
+  border-color: var(--purple);
+  background: var(--gray-50);
 }
 
-/* Hero visual */
-.hero-visual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* Hero Card */
 .hero-card {
-  width: 100%;
-  max-width: 480px;
-  background: var(--white);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 30px 80px rgba(74,0,114,0.12), 0 0 0 1px rgba(74,0,114,0.05);
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 40px rgba(74,0,114,0.1), 0 0 0 1px rgba(74,0,114,0.04);
   position: relative;
-  z-index: 1;
 }
 .hero-card-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.hero-card-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--gray-800);
+}
+.hero-card-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(16,185,129,0.1);
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 50px;
+}
+.hero-card-status .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   margin-bottom: 28px;
 }
-.hero-card-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: var(--gradient-brand);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 1.5rem;
-}
-.hero-card-info h3 { font-size: 1rem; font-weight: 700; color: var(--purple-deep); }
-.hero-card-info p { font-size: 0.85rem; color: var(--gray-600); }
-
-.hero-stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.hero-stat {
-  background: var(--gray-50);
-  border-radius: 16px;
-  padding: 20px;
+.stat-item {
   text-align: center;
+  padding: 16px 8px;
+  background: var(--gray-50);
+  border-radius: 12px;
 }
-.hero-stat-number {
-  font-size: 1.8rem;
+.stat-item .number {
   font-weight: 800;
+  font-size: 1.5rem;
   background: var(--gradient-warm);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-.hero-stat-label { font-size: 0.78rem; color: var(--gray-600); margin-top: 4px; font-weight: 500; }
-
-.hero-progress { margin-top: 8px; }
-.hero-progress-label {
+.stat-item .label {
+  font-size: 0.78rem;
+  color: var(--gray-600);
+  font-weight: 500;
+  margin-top: 2px;
+}
+.progress-section label {
   display: flex;
   justify-content: space-between;
   font-size: 0.82rem;
@@ -365,1442 +392,873 @@ nav.scrolled {
   color: var(--gray-600);
   margin-bottom: 8px;
 }
-.hero-progress-bar {
+.progress-bar-track {
   height: 8px;
   background: var(--gray-100);
-  border-radius: 10px;
+  border-radius: 50px;
   overflow: hidden;
 }
-.hero-progress-fill {
+.progress-bar-fill {
   height: 100%;
   background: var(--gradient-glow);
-  border-radius: 10px;
-  width: 0%;
-  transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50px;
+  width: 0;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Floating badges around hero card */
 .float-badge {
   position: absolute;
-  background: white;
-  border-radius: 14px;
-  padding: 12px 18px;
-  box-shadow: 0 10px 30px rgba(74,0,114,0.1);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--purple-deep);
-  z-index: 2;
-  animation: float-badge 4s ease-in-out infinite;
-}
-.float-badge-icon {
-  width: 32px;
-  height: 32px;
+  padding: 8px 14px;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  animation: floatBadge 6s ease-in-out infinite;
+  z-index: 2;
 }
-.fb-1 { top: 10%; right: -20px; animation-delay: 0s; }
-.fb-1 .float-badge-icon { background: rgba(0,212,255,0.12); }
-.fb-2 { bottom: 15%; left: -30px; animation-delay: 1.5s; }
-.fb-2 .float-badge-icon { background: rgba(160,20,124,0.1); }
-
-@keyframes float-badge {
+.float-badge-1 {
+  top: -12px;
+  right: -16px;
+  background: var(--white);
+  color: var(--purple);
+  animation-delay: 0s;
+}
+.float-badge-2 {
+  bottom: 40px;
+  left: -24px;
+  background: var(--green);
+  color: white;
+  animation-delay: -2s;
+}
+.float-badge-3 {
+  top: 60px;
+  left: -20px;
+  background: var(--white);
+  color: var(--pink);
+  animation-delay: -4s;
+}
+@keyframes floatBadge {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
-/* ========== STATS BAR ========== */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero { min-height: auto; padding: 120px 0 60px; }
+  .float-badge { display: none; }
+}
+
+/* ===== STATS BAR ===== */
 .stats-bar {
-  background: var(--purple-deep);
-  padding: 48px 0;
-  position: relative;
-  overflow: hidden;
-}
-.stats-bar::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
   background: var(--gradient-brand);
-  opacity: 0.7;
-}
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  padding: 40px 0;
   position: relative;
   z-index: 1;
 }
-.stat-item { text-align: center; color: white; }
-.stat-number {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-.stat-text { font-size: 0.9rem; opacity: 0.85; font-weight: 500; }
-
-/* ========== PROBLEM SECTION ========== */
-.problem {
-  padding: 100px 0;
-  background: var(--off-white);
-  position: relative;
-}
-.problem-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
-}
-.problem-cards { display: flex; flex-direction: column; gap: 20px; }
-.problem-card {
-  background: white;
-  border-radius: 20px;
-  padding: 28px 32px;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  box-shadow: 0 4px 20px rgba(74,0,114,0.06);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.problem-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(74,0,114,0.1);
-}
-.problem-icon {
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-}
-.problem-card h4 { font-size: 1rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 6px; }
-.problem-card p { font-size: 0.92rem; color: var(--gray-600); line-height: 1.6; }
-
-/* ========== OPPORTUNITY ========== */
-.opportunity {
-  padding: 100px 0;
-  position: relative;
-  overflow: hidden;
-}
-.opp-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 48px;
-}
-.opp-card {
-  background: white;
-  border-radius: 20px;
-  padding: 36px 32px;
-  border: 1px solid rgba(74,0,114,0.06);
-  box-shadow: 0 4px 20px rgba(74,0,114,0.04);
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-.opp-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: var(--gradient-glow);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.opp-card:hover::before { opacity: 1; }
-.opp-card:hover { transform: translateY(-6px); box-shadow: 0 16px 50px rgba(74,0,114,0.1); }
-.opp-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.5rem;
-  font-weight: 800;
-  background: var(--gradient-glow);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 16px;
-}
-.opp-card h4 { font-size: 1.1rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 10px; }
-.opp-card p { font-size: 0.92rem; color: var(--gray-600); line-height: 1.6; }
-
-/* ========== MISSION ========== */
-.mission {
-  padding: 100px 0;
-  background: var(--purple-deep);
-  position: relative;
-  overflow: hidden;
-}
-.mission::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--gradient-brand);
-  opacity: 0.6;
-}
-.mission .container { position: relative; z-index: 1; }
-.mission-inner { text-align: center; max-width: 800px; margin: 0 auto; }
-.mission .section-label { color: var(--cyan); }
-.mission .section-title { color: white; }
-.mission-text {
-  font-size: 1.3rem;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.8;
-  margin-bottom: 40px;
-}
-.mission-quote {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  font-style: italic;
-  color: var(--cyan);
-  margin-top: 30px;
-}
-
-/* ========== SOLUTIONS ========== */
-.solutions {
-  padding: 100px 0;
-  background: var(--off-white);
-}
-.solutions-grid {
+.stats-bar-inner {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  margin-top: 48px;
-}
-.solution-card {
-  background: white;
-  border-radius: 20px;
-  padding: 36px 28px;
   text-align: center;
-  box-shadow: 0 4px 20px rgba(74,0,114,0.04);
-  border: 1px solid rgba(74,0,114,0.05);
-  transition: all 0.3s;
 }
-.solution-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 50px rgba(74,0,114,0.1);
-}
-.solution-icon {
-  width: 72px;
-  height: 72px;
-  border-radius: 20px;
-  margin: 0 auto 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.stats-bar-item .number {
+  font-weight: 900;
   font-size: 2rem;
+  color: white;
 }
-.solution-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 10px; }
-.solution-card p { font-size: 0.88rem; color: var(--gray-600); line-height: 1.6; }
+.stats-bar-item .label {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+  margin-top: 4px;
+}
+@media (max-width: 600px) {
+  .stats-bar-inner { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; }
+  .stats-bar-item .number { font-size: 1.6rem; }
+}
 
-/* ========== IMPACT ========== */
-.impact { padding: 100px 0; position: relative; }
-.impact-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+/* ===== SECTION STYLES ===== */
+section { padding: 100px 0; position: relative; }
+.section-label {
+  display: inline-flex;
   align-items: center;
-}
-.impact-items { display: flex; flex-direction: column; gap: 24px; }
-.impact-item { display: flex; align-items: flex-start; gap: 20px; }
-.impact-item-number {
-  flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   background: var(--gradient-warm);
-  display: flex;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 14px;
+}
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--gradient-warm);
+  border-radius: 2px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--gray-800);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--gray-600);
+  max-width: 640px;
+  line-height: 1.7;
+}
+
+/* ===== ABOUT ===== */
+.about { background: var(--off-white); }
+.about-content {
+  max-width: 720px;
+}
+.about-text {
+  font-size: 1.08rem;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin: 24px 0 32px;
+}
+.mission-box {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 32px;
+  border-left: 4px solid var(--magenta);
+  box-shadow: 0 2px 12px rgba(74,0,114,0.05);
+}
+.mission-box p {
+  font-size: 1rem;
+  color: var(--gray-800);
+  font-weight: 500;
+  line-height: 1.7;
+  font-style: italic;
+}
+.mission-box .mission-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--magenta);
+  font-style: normal;
+  margin-bottom: 8px;
+}
+
+/* ===== PROGRAM ===== */
+.program-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.program-header .section-sub {
+  margin: 8px auto 0;
+}
+
+/* Phases */
+.phases-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 72px;
+}
+.phase-card {
+  background: white;
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1px solid var(--gray-100);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.phase-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(74,0,114,0.08);
+}
+.phase-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-glow);
+}
+.phase-number {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.3rem;
-  font-weight: 800;
-}
-.impact-item h4 { font-size: 1.2rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 4px; }
-.impact-item p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.6; }
-
-/* ========== PILOT PROGRAM ========== */
-.pilot { padding: 100px 0; background: var(--off-white); }
-.pilot-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  margin-top: 48px;
-}
-.pilot-features { display: flex; flex-direction: column; gap: 20px; }
-.pilot-feature {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: white;
-  padding: 20px 24px;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(74,0,114,0.04);
-}
-.pilot-check {
-  flex-shrink: 0;
   width: 36px;
   height: 36px;
+  background: var(--gray-50);
   border-radius: 10px;
-  background: rgba(0,212,255,0.1);
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--purple);
+  margin-bottom: 14px;
+}
+.phase-weeks {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--magenta);
+  margin-bottom: 6px;
+}
+.phase-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--gray-800);
+  margin-bottom: 10px;
+}
+.phase-desc {
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.phase-domain {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--cyan);
+  background: rgba(0,212,255,0.08);
+  padding: 4px 10px;
+  border-radius: 50px;
+  display: inline-block;
+}
+
+@media (max-width: 900px) {
+  .phases-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 550px) {
+  .phases-grid { grid-template-columns: 1fr; }
+}
+
+/* Included cards */
+.included-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.included-header h3 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--gray-800);
+}
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.included-card {
+  background: var(--gray-50);
+  border-radius: 14px;
+  padding: 24px;
+  transition: transform 0.3s;
+}
+.included-card:hover { transform: translateY(-3px); }
+.included-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--white);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--cyan);
-  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(74,0,114,0.06);
 }
-.pilot-feature p { font-size: 0.95rem; color: var(--gray-800); font-weight: 500; }
+.included-card h4 {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--gray-800);
+  margin-bottom: 6px;
+}
+.included-card p {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  line-height: 1.6;
+}
 
-.pilot-cta-card {
-  background: var(--gradient-brand);
-  border-radius: 24px;
-  padding: 48px 40px;
-  color: white;
+@media (max-width: 768px) {
+  .included-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .included-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== WHO IT'S FOR ===== */
+.who { background: var(--off-white); }
+.who-header { text-align: center; margin-bottom: 48px; }
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.who-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  border: 1px solid var(--gray-100);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.who-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(74,0,114,0.08);
+}
+.who-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--gray-50);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 16px;
+}
+.who-card h4 {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--gray-800);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .who-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .who-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== VISION ===== */
+.vision-content {
+  max-width: 780px;
+  margin: 0 auto;
   text-align: center;
 }
-.pilot-cta-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+.vision-text {
+  font-size: 1.08rem;
+  color: var(--gray-600);
+  line-height: 1.8;
+  margin: 24px 0 48px;
+}
+.vision-goals {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.vision-goal {
+  padding: 24px;
+  background: var(--gray-50);
+  border-radius: 14px;
+}
+.vision-goal .number {
   font-weight: 800;
+  font-size: 1.4rem;
+  background: var(--gradient-warm);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.vision-goal .label {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  .vision-goals { grid-template-columns: 1fr; }
+}
+
+/* ===== JOIN CTA ===== */
+.join {
+  background: var(--gradient-brand);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.join::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 50%;
+  top: -200px;
+  right: -100px;
+}
+.join-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.join h2 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: white;
   margin-bottom: 16px;
 }
-.pilot-cta-card p {
+.join p {
   font-size: 1.05rem;
-  opacity: 0.9;
-  margin-bottom: 28px;
-  line-height: 1.6;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  margin-bottom: 32px;
 }
 .btn-white {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  padding: 16px 36px;
   background: white;
   color: var(--purple-deep);
-  padding: 16px 36px;
+  border: none;
   border-radius: 50px;
-  text-decoration: none;
   font-weight: 700;
   font-size: 1rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  border: none;
+  text-decoration: none;
   cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .btn-white:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-}
-
-/* ========== AUDIENCE ========== */
-.audience { padding: 100px 0; }
-.audience-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 48px;
-}
-.audience-card {
-  text-align: center;
-  padding: 36px 24px;
-  border-radius: 20px;
-  background: var(--gray-50);
-  transition: all 0.3s;
-}
-.audience-card:hover {
-  background: white;
-  box-shadow: 0 16px 50px rgba(74,0,114,0.08);
-  transform: translateY(-6px);
-}
-.audience-emoji { font-size: 2.8rem; margin-bottom: 16px; display: block; }
-.audience-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 8px; }
-.audience-card p { font-size: 0.88rem; color: var(--gray-600); line-height: 1.5; }
-
-/* ========== TEAM ========== */
-.team { padding: 100px 0; background: var(--off-white); }
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-top: 48px;
-}
-.team-card {
-  background: white;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(74,0,114,0.04);
-  transition: all 0.3s;
-  text-align: center;
-}
-.team-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(74,0,114,0.1); }
-.team-card-header { height: 100px; background: var(--gradient-brand); position: relative; }
-.team-avatar {
-  width: 96px; height: 96px; border-radius: 50%;
-  background: var(--gray-100); border: 4px solid white;
-  position: absolute; bottom: -48px; left: 50%; transform: translateX(-50%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.2rem; box-shadow: 0 4px 20px rgba(74,0,114,0.1);
-  overflow: hidden;
-}
-.team-avatar img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-.team-card-body { padding: 60px 28px 32px; }
-.team-card h4 { font-size: 1.15rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 4px; }
-.team-role {padding: 30px; font-size: 0.88rem; color: var(--magenta); font-weight: 600; }
-
-/* ========== HOW TO HELP / CTA ========== */
-.help { padding: 100px 0; }
-.help-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  margin-top: 48px;
-}
-.help-card {
-  background: white;
-  border-radius: 20px;
-  padding: 36px 28px;
-  text-align: center;
-  border: 2px solid var(--gray-100);
-  transition: all 0.3s;
-  cursor: pointer;
-}
-.help-card:hover {
-  border-color: var(--magenta);
-  transform: translateY(-6px);
-  box-shadow: 0 16px 50px rgba(74,0,114,0.08);
-}
-.help-icon {
-  width: 64px; height: 64px; border-radius: 18px;
-  margin: 0 auto 20px;
-  display: flex; align-items: center; justify-content: center; font-size: 1.8rem;
-}
-.help-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--purple-deep); margin-bottom: 8px; }
-.help-card p { font-size: 0.88rem; color: var(--gray-600); line-height: 1.6; margin-bottom: 16px; }
-.help-card-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--gradient-warm);
-  color: white;
-  padding: 10px 22px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.85rem;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.help-card-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(160,20,124,0.3);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.15);
 }
-
-/* ========== MODAL SYSTEM ========== */
-.modal-overlay {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(45, 31, 54, 0.6);
-  backdrop-filter: blur(8px);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-  padding: 20px;
-}
-.modal-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-.modal {
-  background: white;
-  border-radius: 24px;
-  width: 100%;
-  max-width: 520px;
-  max-height: 90vh;
-  overflow-y: auto;
-  transform: translateY(30px) scale(0.95);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 40px 100px rgba(74,0,114,0.2);
-}
-.modal-overlay.active .modal {
-  transform: translateY(0) scale(1);
-}
-.modal-header {
-  padding: 32px 32px 0;
-  position: relative;
-}
-.modal-header-accent {
-  height: 4px;
-  background: var(--gradient-glow);
-  border-radius: 24px 24px 0 0;
-  position: absolute;
-  top: 0; left: 0; right: 0;
-}
-.modal-close {
-  position: absolute;
-  top: 20px; right: 20px;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: var(--gray-50);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gray-600);
-  font-size: 1.2rem;
-  transition: all 0.2s;
-}
-.modal-close:hover { background: var(--gray-100); color: var(--purple-deep); }
-.modal-icon {
-  width: 56px; height: 56px; border-radius: 16px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem; margin-bottom: 16px;
-}
-.modal-header h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem; font-weight: 800; color: var(--purple-deep); margin-bottom: 8px;
-}
-.modal-header p { font-size: 0.92rem; color: var(--gray-600); line-height: 1.6; }
-
-.modal-body { padding: 28px 32px 32px; }
-
-/* Form styles */
-.form-group { margin-bottom: 20px; }
-.form-group label {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--gray-800);
-  margin-bottom: 6px;
-}
-.form-group label .required { color: var(--red); }
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid var(--gray-100);
-  border-radius: 12px;
-  font-size: 0.95rem;
-  font-family: 'Inter', sans-serif;
-  color: var(--gray-800);
-  transition: border-color 0.2s, box-shadow 0.2s;
-  outline: none;
-  background: white;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--magenta);
-  box-shadow: 0 0 0 3px rgba(160,20,124,0.1);
-}
-.form-group textarea { resize: vertical; min-height: 100px; }
-.form-group input::placeholder,
-.form-group textarea::placeholder { color: var(--gray-600); opacity: 0.5; }
-
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-.form-submit {
-  width: 100%;
-  padding: 16px;
-  background: var(--gradient-warm);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-top: 8px;
-}
-.form-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(160,20,124,0.3);
-}
-.form-submit:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-/* Success state */
-.form-success {
-  display: none;
-  text-align: center;
-  padding: 40px 32px;
-}
-.form-success.show { display: block; }
-.form-success-icon {
-  width: 72px; height: 72px; border-radius: 50%;
-  background: rgba(16,185,129,0.1);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px;
-}
-.form-success h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; font-weight: 800;
-  color: var(--purple-deep); margin-bottom: 10px;
-}
-.form-success p { font-size: 0.95rem; color: var(--gray-600); line-height: 1.6; }
-
-/* ========== FINAL CTA ========== */
-.cta-section {
-  padding: 100px 0;
-  background: var(--purple-deep);
-  position: relative;
-  overflow: hidden;
-}
-.cta-section::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--gradient-brand);
-  opacity: 0.5;
-}
-.cta-inner {
-  position: relative; z-index: 1;
-  text-align: center; max-width: 700px; margin: 0 auto;
-}
-.cta-inner h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  font-weight: 900; color: white; line-height: 1.15; margin-bottom: 20px;
-}
-.cta-inner p {
-  font-size: 1.15rem; color: rgba(255,255,255,0.85);
-  margin-bottom: 36px; line-height: 1.7;
-}
-.cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-.btn-outline-white {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; color: white;
-  padding: 16px 36px; border-radius: 50px;
-  text-decoration: none; font-weight: 700; font-size: 1rem;
-  border: 2px solid rgba(255,255,255,0.4);
-  transition: all 0.2s; cursor: pointer;
-}
-.btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: white; }
-
-/* ========== FOOTER ========== */
-footer {
-  background: var(--gray-800);
-  padding: 64px 0 32px;
+.join-email {
+  margin-top: 20px;
+  font-size: 0.9rem;
   color: rgba(255,255,255,0.7);
 }
-.footer-grid {
+.join-email a {
+  color: white;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--gray-800);
+  padding: 60px 0 32px;
+  color: rgba(255,255,255,0.7);
+}
+.footer-inner {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 48px; margin-bottom: 48px;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 40px;
 }
-.footer-brand h3 { color: white; font-size: 1.2rem; font-weight: 800; margin-bottom: 12px; }
-.footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 300px; }
-.footer-col h4 { color: white; font-size: 0.9rem; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.08em; }
-.footer-col a {
-  display: block; color: rgba(255,255,255,0.6); text-decoration: none;
-  font-size: 0.9rem; margin-bottom: 10px; transition: color 0.2s;
+.footer-brand .nav-logo { color: white; margin-bottom: 14px; display: inline-flex; }
+.footer-brand .logo-mark { background: var(--gradient-warm); }
+.footer-tagline {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  max-width: 300px;
 }
-.footer-col a:hover { color: var(--cyan); }
+.footer h4 {
+  font-weight: 700;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: white;
+  margin-bottom: 16px;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-links a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: white; }
 .footer-bottom {
   border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 24px; text-align: center; font-size: 0.85rem;
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.4);
 }
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  .hero-content { grid-template-columns: 1fr; text-align: center; }
-  .hero-sub { margin: 0 auto 36px; }
-  .hero-buttons { justify-content: center; }
-  .hero-visual { display: none; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .problem-grid, .impact-grid, .pilot-content { grid-template-columns: 1fr; }
-  .solutions-grid, .audience-grid, .help-grid { grid-template-columns: repeat(2, 1fr); }
-  .opp-grid { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+.footer-social a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
 }
+.footer-social a:hover { color: white; }
 
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .nav-links.active {
-    display: flex; flex-direction: column;
-    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-    background: white; justify-content: center; align-items: center;
-    gap: 24px; z-index: 999;
-  }
-  .nav-links.active a { font-size: 1.2rem; }
-  .mobile-toggle { display: block; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .solutions-grid, .audience-grid, .help-grid { grid-template-columns: 1fr; }
-  .team-grid { grid-template-columns: 1fr; max-width: 360px; margin-left: auto; margin-right: auto; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .hero { padding-top: 100px; }
-  .form-row { grid-template-columns: 1fr; }
-  .modal { margin: 10px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
 }
 </style>
 </head>
 <body>
 
-<!-- ========== NAVIGATION ========== -->
-<nav id="navbar">
+<!-- NAV -->
+<nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c4-4 8-7.5 8-12a8 8 0 10-16 0c0 4.5 4 8 8 12z"/><path d="M9 11l2 2 4-4"/></svg>
-      </div>
-      MIPM
+      <div class="logo-mark">M</div>
+      Moms in PM
     </a>
-    <ul class="nav-links" id="navLinks">
+    <ul class="nav-links">
       <li><a href="#about">About</a></li>
-      <li><a href="#programs">Programs</a></li>
-      <li><a href="#impact">Impact</a></li>
-      <li><a href="#team">Team</a></li>
-      <li><a onclick="openModal('signup')" class="nav-cta">Get Involved</a></li>
+      <li><a href="#program">Program</a></li>
+      <li><a href="#join">Join</a></li>
+      <li><a href="mailto:hello@momsinpm.org">Contact</a></li>
+      <li><a href="#join" class="nav-cta">Join the Cohort</a></li>
     </ul>
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" class="mobile-link">About</a>
+  <a href="#program" class="mobile-link">Program</a>
+  <a href="#join" class="mobile-link">Join</a>
+  <a href="mailto:hello@momsinpm.org" class="mobile-link">Contact</a>
+  <a href="#join" class="nav-cta mobile-link">Join the Cohort</a>
+</div>
 
-<!-- ========== HERO ========== -->
-<section class="hero" id="home">
+<!-- HERO -->
+<section class="hero">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="container">
-    <div class="hero-content">
-      <div>
-        <div class="hero-badge">
-          <span class="hero-badge-dot"></span>
-          Now enrolling for our next cohort
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge reveal">
+          <span class="pulse-dot"></span>
+          Cohort 1 is Live
         </div>
-        <h1>Transforming Motherhood Into <span class="highlight">Professional Power</span></h1>
-        <p class="hero-sub">We equip mothers with project management skills, certifications, and mentorship to confidently enter or re-enter the workforce. Because every mom is already a project manager.</p>
-        <div class="hero-buttons">
-          <button onclick="openModal('signup')" class="btn-primary">
-            Join Our Program
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-          </button>
-          <a href="#about" class="btn-secondary">Learn More</a>
+        <h1 class="reveal reveal-delay-1">We're Helping Moms Get <span>Certified in Project Management</span></h1>
+        <p class="hero-sub reveal reveal-delay-2">15+ mothers are already studying for their CAPM certification together &mdash; for free. No experience needed. Join us.</p>
+        <div class="hero-buttons reveal reveal-delay-3">
+          <a href="#join" class="btn-primary">Join Our Study Group</a>
+          <a href="#program" class="btn-secondary">Learn More</a>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-card">
+      <div class="hero-right reveal reveal-delay-2">
+        <div class="hero-card" id="heroCard">
+          <div class="float-badge float-badge-1">&#127891; CAPM Certified</div>
+          <div class="float-badge float-badge-2">&#10003; 100% Free</div>
+          <div class="float-badge float-badge-3">&#128149; Mom-Friendly</div>
           <div class="hero-card-header">
-            <div class="hero-card-avatar">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            <span class="hero-card-title">Cohort 1 in Progress</span>
+            <span class="hero-card-status"><span class="dot"></span> Active</span>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-item">
+              <div class="number">15+</div>
+              <div class="label">Members</div>
             </div>
-            <div class="hero-card-info">
-              <h3>Community Dashboard</h3>
-              <p>Moms in Project Management</p>
+            <div class="stat-item">
+              <div class="number">12</div>
+              <div class="label">Weeks</div>
+            </div>
+            <div class="stat-item">
+              <div class="number">$0</div>
+              <div class="label">Cost</div>
+            </div>
+            <div class="stat-item">
+              <div class="number">CAPM</div>
+              <div class="label">Certification</div>
             </div>
           </div>
-          <div class="hero-stat-grid">
-            <div class="hero-stat">
-              <div class="hero-stat-number">10K</div>
-              <div class="hero-stat-label">Moms to Empower</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-number">1,000</div>
-              <div class="hero-stat-label">Certifications Goal</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-number">50+</div>
-              <div class="hero-stat-label">Partner Orgs</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-number">100%</div>
-              <div class="hero-stat-label">Free Training</div>
-            </div>
-          </div>
-          <div class="hero-progress">
-            <div class="hero-progress-label">
-              <span>Pilot Progress</span>
-              <span>50 / 50 moms</span>
-            </div>
-            <div class="hero-progress-bar">
-              <div class="hero-progress-fill" id="progressFill"></div>
+          <div class="progress-section">
+            <label>
+              <span>Progress</span>
+              <span>Week 1 of 12</span>
+            </label>
+            <div class="progress-bar-track">
+              <div class="progress-bar-fill" id="progressFill"></div>
             </div>
           </div>
         </div>
-        <div class="float-badge fb-1">
-          <div class="float-badge-icon">&#127891;</div>
-          PMP Certified!
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-bar-inner">
+      <div class="stats-bar-item reveal">
+        <div class="number">15+</div>
+        <div class="label">Moms Enrolled</div>
+      </div>
+      <div class="stats-bar-item reveal reveal-delay-1">
+        <div class="number">12</div>
+        <div class="label">Week Program</div>
+      </div>
+      <div class="stats-bar-item reveal reveal-delay-2">
+        <div class="number">$0</div>
+        <div class="label">Total Cost</div>
+      </div>
+      <div class="stats-bar-item reveal reveal-delay-3">
+        <div class="number">1</div>
+        <div class="label">Active Cohort</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-content">
+      <div class="section-label reveal">Our Story</div>
+      <h2 class="section-title reveal reveal-delay-1">From One WhatsApp Broadcast to a Movement</h2>
+      <p class="about-text reveal reveal-delay-2">MIPM started with a simple question: what if moms could get project management certified together, for free? One WhatsApp post. Fifteen moms who said "I'm in." A WhatsApp group that buzzes every single day. That's how movements start &mdash; not with a business plan, but with a group of women who decided to bet on themselves.</p>
+      <div class="mission-box reveal reveal-delay-3">
+        <p class="mission-label">Our Mission</p>
+        <p>To empower mothers through project management education and support, enabling them to enter or re-enter the workforce with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM -->
+<section class="program" id="program">
+  <div class="container">
+    <div class="program-header">
+      <div class="section-label reveal">The Program</div>
+      <h2 class="section-title reveal reveal-delay-1">12 Weeks to Your CAPM Certification</h2>
+      <p class="section-sub reveal reveal-delay-2">A structured, free study program designed around a mother's schedule</p>
+    </div>
+
+    <div class="phases-grid">
+      <div class="phase-card reveal">
+        <div class="phase-number">1</div>
+        <div class="phase-weeks">Weeks 1 &ndash; 4</div>
+        <h3 class="phase-title">Foundations</h3>
+        <p class="phase-desc">PM fundamentals, project lifecycle, and stakeholder analysis. Building the knowledge base you'll use for everything ahead.</p>
+        <span class="phase-domain">CAPM Domain 1 &mdash; 36% of exam</span>
+      </div>
+      <div class="phase-card reveal reveal-delay-1">
+        <div class="phase-number">2</div>
+        <div class="phase-weeks">Weeks 5 &ndash; 8</div>
+        <h3 class="phase-title">Planning &amp; Execution</h3>
+        <p class="phase-desc">Work breakdown structures, budgets, risk management, quality, and communication planning.</p>
+        <span class="phase-domain">CAPM Domain 2 &mdash; 17% of exam</span>
+      </div>
+      <div class="phase-card reveal reveal-delay-2">
+        <div class="phase-number">3</div>
+        <div class="phase-weeks">Weeks 9 &ndash; 10</div>
+        <h3 class="phase-title">Agile &amp; Business Analysis</h3>
+        <p class="phase-desc">Scrum, Kanban, and requirements gathering. The modern PM toolkit that employers want to see.</p>
+        <span class="phase-domain">CAPM Domains 3 &amp; 4 &mdash; 47% of exam</span>
+      </div>
+      <div class="phase-card reveal reveal-delay-3">
+        <div class="phase-number">4</div>
+        <div class="phase-weeks">Weeks 11 &ndash; 12</div>
+        <h3 class="phase-title">Review &amp; Exam Prep</h3>
+        <p class="phase-desc">Full mock exams, weak-area review, and exam-day strategy. You'll walk in confident and ready.</p>
+        <span class="phase-domain">Full exam coverage</span>
+      </div>
+    </div>
+
+    <div class="included-header reveal">
+      <h3>What's Included</h3>
+    </div>
+    <div class="included-grid">
+      <div class="included-card reveal">
+        <div class="included-icon">&#127891;</div>
+        <h4>Google PM Certificate</h4>
+        <p>Coursera course, free with financial aid. Covers the 23 education hours required for the CAPM exam.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-1">
+        <div class="included-icon">&#128247;</div>
+        <h4>Weekly Group Calls</h4>
+        <p>45-minute video check-ins every week for accountability, questions, and genuine support.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-2">
+        <div class="included-icon">&#9998;</div>
+        <h4>Free Practice Exams</h4>
+        <p>700+ questions across PMLearning, Mometrix, and Agilemania. All free, all curated for you.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-3">
+        <div class="included-icon">&#128172;</div>
+        <h4>WhatsApp Community</h4>
+        <p>Daily support from moms who get it. Ask questions, share wins, and keep each other going.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-4">
+        <div class="included-icon">&#128197;</div>
+        <h4>Flexible Study Schedule</h4>
+        <p>5 hours per week, self-paced within weekly goals. Designed to fit around nap times and school runs.</p>
+      </div>
+      <div class="included-card reveal reveal-delay-5">
+        <div class="included-icon">&#10024;</div>
+        <h4>No Prerequisites</h4>
+        <p>A high school diploma is all you need. No prior PM experience required. Start exactly where you are.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section class="who">
+  <div class="container">
+    <div class="who-header">
+      <div class="section-label reveal">Who It's For</div>
+      <h2 class="section-title reveal reveal-delay-1">Built for Moms at Every Stage</h2>
+    </div>
+    <div class="who-grid">
+      <div class="who-card reveal">
+        <div class="who-icon">&#127968;</div>
+        <h4>Stay-at-home moms ready for a career</h4>
+      </div>
+      <div class="who-card reveal reveal-delay-1">
+        <div class="who-icon">&#128260;</div>
+        <h4>Moms on career breaks wanting to return</h4>
+      </div>
+      <div class="who-card reveal reveal-delay-2">
+        <div class="who-icon">&#128640;</div>
+        <h4>Working moms looking to level up</h4>
+      </div>
+      <div class="who-card reveal reveal-delay-3">
+        <div class="who-icon">&#127775;</div>
+        <h4>New moms planning their next chapter</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION -->
+<section class="vision">
+  <div class="container">
+    <div class="vision-content">
+      <div class="section-label reveal">Where We're Headed</div>
+      <h2 class="section-title reveal reveal-delay-1">Cohort 1 Is Just the Beginning</h2>
+      <p class="vision-text reveal reveal-delay-2">Our vision is to build the first PM career ecosystem for mothers &mdash; certifications, mentorship, and employer partnerships that create a clear path from motherhood to the workforce. We're starting with 15 moms. We're not stopping there.</p>
+      <div class="vision-goals reveal reveal-delay-3">
+        <div class="vision-goal">
+          <div class="number">1,000</div>
+          <div class="label">Certified Moms</div>
         </div>
-        <div class="float-badge fb-2">
-          <div class="float-badge-icon">&#128640;</div>
-          New Career Started
+        <div class="vision-goal">
+          <div class="number">50+</div>
+          <div class="label">Employer Partners</div>
+        </div>
+        <div class="vision-goal">
+          <div class="number">Nationwide</div>
+          <div class="label">Community Chapters</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== STATS BAR ========== -->
-<section class="stats-bar">
+<!-- JOIN CTA -->
+<section class="join" id="join">
   <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item reveal"><div class="stat-number">10,000</div><div class="stat-text">Moms to Empower</div></div>
-      <div class="stat-item reveal reveal-delay-1"><div class="stat-number">1,000</div><div class="stat-text">Certifications Targeted</div></div>
-      <div class="stat-item reveal reveal-delay-2"><div class="stat-number">50+</div><div class="stat-text">Partner Organizations</div></div>
-      <div class="stat-item reveal reveal-delay-3"><div class="stat-number">1st</div><div class="stat-text">PM Ecosystem for Moms</div></div>
+    <div class="join-content reveal">
+      <h2>Ready to Join Cohort 1?</h2>
+      <p>Spots are filling up. Our first cohort of moms is already in progress, and there's still room for you.</p>
+      <a href="mailto:hello@momsinpm.org?subject=I%20want%20to%20join%20the%20study%20group" class="btn-white">Apply Now</a>
+      <p class="join-email">Have questions? Email us at <a href="mailto:hello@momsinpm.org">hello@momsinpm.org</a></p>
     </div>
   </div>
 </section>
 
-<!-- ========== PROBLEM ========== -->
-<section class="problem" id="about">
+<!-- FOOTER -->
+<footer class="footer">
   <div class="container">
-    <div class="problem-grid">
-      <div>
-        <span class="section-label reveal">The Challenge</span>
-        <h2 class="section-title reveal">Millions of Moms Are Ready. The System Isn't.</h2>
-        <p class="section-desc reveal">Women step away from careers to raise families, and when they're ready to return, the doors feel closed. They're told they're "out of touch" — yet they manage complex, high-stakes projects every single day.</p>
-      </div>
-      <div class="problem-cards">
-        <div class="problem-card reveal">
-          <div class="problem-icon" style="background: rgba(160,20,124,0.08);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
-          </div>
-          <div><h4>Career Gaps Penalized</h4><p>Mothers returning to work face bias and outdated hiring practices that overlook their transferable skills.</p></div>
-        </div>
-        <div class="problem-card reveal reveal-delay-1">
-          <div class="problem-icon" style="background: rgba(0,212,255,0.08);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <div><h4>Untapped Potential</h4><p>Moms manage budgets, schedules, stakeholders, and crises daily — skills that map directly to project management.</p></div>
-        </div>
-        <div class="problem-card reveal reveal-delay-2">
-          <div class="problem-icon" style="background: rgba(74,0,114,0.08);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          </div>
-          <div><h4>Confidence Gap</h4><p>Many feel left behind, underqualified, and invisible — even though they're more capable than they realize.</p></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== OPPORTUNITY ========== -->
-<section class="opportunity">
-  <div class="container">
-    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-      <span class="section-label reveal">The Opportunity</span>
-      <h2 class="section-title reveal">Why Project Management?</h2>
-      <p class="section-desc reveal" style="margin: 0 auto;">A fast-growing field where the skills of motherhood become superpowers.</p>
-    </div>
-    <div class="opp-grid">
-      <div class="opp-card reveal"><div class="opp-number">01</div><h4>Booming Industry</h4><p>Project management is one of the fastest-growing career fields globally, with demand outpacing supply across every sector.</p></div>
-      <div class="opp-card reveal reveal-delay-1"><div class="opp-number">02</div><h4>Skills Already There</h4><p>Moms already have the core competencies — time management, stakeholder coordination, risk mitigation. We just bridge the gap with formal training.</p></div>
-      <div class="opp-card reveal reveal-delay-2"><div class="opp-number">03</div><h4>Motherhood = Leadership</h4><p>We're reinventing motherhood as leadership training, turning lived experience into recognized professional qualifications.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== MISSION ========== -->
-<section class="mission">
-  <div class="container">
-    <div class="mission-inner reveal">
-      <span class="section-label">Our Mission</span>
-      <h2 class="section-title">Empowering Mothers. Building Careers. Transforming Communities.</h2>
-      <p class="mission-text">To empower mothers through project management education and support, enabling them to enter or re-enter the workforce with confidence and contribute meaningfully to the economy.</p>
-      <p class="mission-quote">"Because Every Mom is a Project Manager"</p>
-    </div>
-  </div>
-</section>
-
-<!-- ========== SOLUTIONS ========== -->
-<section class="solutions" id="programs">
-  <div class="container">
-    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-      <span class="section-label reveal">What We Offer</span>
-      <h2 class="section-title reveal">Your Path to a PM Career</h2>
-      <p class="section-desc reveal" style="margin: 0 auto;">Everything you need — from first lesson to first job offer.</p>
-    </div>
-    <div class="solutions-grid">
-      <div class="solution-card reveal">
-        <div class="solution-icon" style="background: rgba(160,20,124,0.08);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
-        <h4>Free PM Training</h4><p>CAPM, PMP, and Agile certification prep programs designed around a mother's schedule.</p>
-      </div>
-      <div class="solution-card reveal reveal-delay-1">
-        <div class="solution-icon" style="background: rgba(0,212,255,0.08);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-        <h4>Expert Mentorship</h4><p>One-on-one guidance from certified project managers who understand your journey.</p>
-      </div>
-      <div class="solution-card reveal reveal-delay-2">
-        <div class="solution-icon" style="background: rgba(74,0,114,0.08);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14l2 2 4-4"/></svg></div>
-        <h4>Job Placement</h4><p>Community support and direct pathways to returnship and employment opportunities.</p>
-      </div>
-      <div class="solution-card reveal reveal-delay-3">
-        <div class="solution-icon" style="background: rgba(212,23,122,0.08);"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-        <h4>Online Platform</h4><p>A learning platform tailored for mothers — flexible, virtual, and designed for part-time study.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== IMPACT ========== -->
-<section class="impact" id="impact">
-  <div class="container">
-    <div class="impact-grid">
-      <div>
-        <span class="section-label reveal">Our Impact Goals</span>
-        <h2 class="section-title reveal">Building the First PM Career Ecosystem for Mothers</h2>
-        <p class="section-desc reveal">Our ambitious 5-year roadmap is designed to create lasting systemic change for mothers everywhere.</p>
-      </div>
-      <div class="impact-items">
-        <div class="impact-item reveal"><div class="impact-item-number">1</div><div><h4>10,000 Moms Empowered</h4><p>Training and supporting ten thousand mothers over five years to launch PM careers.</p></div></div>
-        <div class="impact-item reveal reveal-delay-1"><div class="impact-item-number">2</div><div><h4>1,000 Certifications</h4><p>Securing PMP and CAPM certifications for one thousand moms in the next two years.</p></div></div>
-        <div class="impact-item reveal reveal-delay-2"><div class="impact-item-number">3</div><div><h4>50+ Partner Organizations</h4><p>Building a network of employers committed to returnship and hiring programs for mothers.</p></div></div>
-        <div class="impact-item reveal reveal-delay-3"><div class="impact-item-number">4</div><div><h4>First-of-Its-Kind Ecosystem</h4><p>Creating the world's first PM career support ecosystem designed specifically for mothers.</p></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== PILOT PROGRAM ========== -->
-<section class="pilot">
-  <div class="container">
-    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-      <span class="section-label reveal">Now Enrolling</span>
-      <h2 class="section-title reveal">Pilot Program</h2>
-      <p class="section-desc reveal" style="margin: 0 auto;">Our inaugural cohort is launching with 50 moms. Flexible, virtual, and built around your life.</p>
-    </div>
-    <div class="pilot-content">
-      <div class="pilot-features">
-        <div class="pilot-feature reveal"><div class="pilot-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p>3-week intensive training cohort</p></div>
-        <div class="pilot-feature reveal reveal-delay-1"><div class="pilot-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p>Paired mentorship with certified PMs</p></div>
-        <div class="pilot-feature reveal reveal-delay-2"><div class="pilot-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p>100% virtual and part-time friendly</p></div>
-        <div class="pilot-feature reveal reveal-delay-3"><div class="pilot-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p>Community of fellow mom learners</p></div>
-        <div class="pilot-feature reveal reveal-delay-4"><div class="pilot-check"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><p>Job placement support upon completion</p></div>
-      </div>
-      <div class="pilot-cta-card reveal">
-        <h3>Ready to Start Your PM Journey?</h3>
-        <p>Spaces are limited. Join 50 incredible moms in our pilot program and take the first step toward your new career.</p>
-        <button onclick="openModal('signup')" class="btn-white">
-          Apply Now
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== TARGET AUDIENCE ========== -->
-<section class="audience">
-  <div class="container">
-    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-      <span class="section-label reveal">Who We Serve</span>
-      <h2 class="section-title reveal">Built for Moms Like You</h2>
-    </div>
-    <div class="audience-grid">
-      <div class="audience-card reveal"><span class="audience-emoji">&#127968;</span><h4>Stay-at-Home Moms</h4><p>Ready to re-enter the workforce with new, in-demand skills and confidence.</p></div>
-      <div class="audience-card reveal reveal-delay-1"><span class="audience-emoji">&#128188;</span><h4>Career-Break Professionals</h4><p>Experienced women looking to bridge the gap and return stronger than before.</p></div>
-      <div class="audience-card reveal reveal-delay-2"><span class="audience-emoji">&#128170;</span><h4>Single Moms</h4><p>Seeking financial stability and a clear career pathway for their families.</p></div>
-      <div class="audience-card reveal reveal-delay-3"><span class="audience-emoji">&#128187;</span><h4>Tech-Curious Women</h4><p>Looking to pivot into tech through project management — no coding required.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== TEAM ========== -->
-<section class="team" id="team">
-  <div class="container">
-    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-      <span class="section-label reveal">Our Team</span>
-      <h2 class="section-title reveal">The People Behind the Mission</h2>
-    </div>
-    <div class="team-grid">
-      <div class="team-card reveal"><div class="team-card-header"></div><div class="team-avatar"><img src="Assets/chioma.png" alt="Chioma Opara"></div><div class="team-card-body"><h4>Chioma </h4><p class="team-role">Founder</p></div></div>
-      <div class="team-card reveal reveal-delay-1"><div class="team-card-header" style="background: var(--gradient-warm);"></div><div class="team-avatar"><img src="Assets/Uchenna.jpeg" alt="Uchenna"></div><div class="team-card-body"><h4>Uchenna</h4><p class="team-role">Community Engagement Manager</p></div></div>
-      <div class="team-card reveal reveal-delay-2"><div class="team-card-header" style="background: var(--gradient-glow);"></div><div class="team-avatar"><img src="Assets/obinna.png" alt="Obinna"></div><div class="team-card-body"><h4>Obinna</h4><p class="team-role">Director of Programs</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== HOW TO HELP ========== -->
-<section class="help" id="contact">
-  <div class="container">
-    <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-      <span class="section-label reveal">Get Involved</span>
-      <h2 class="section-title reveal">How You Can Help</h2>
-      <p class="section-desc reveal" style="margin: 0 auto;">Every contribution moves a mom closer to her career goal.</p>
-    </div>
-    <div class="help-grid">
-      <div class="help-card reveal" onclick="openModal('donate')">
-        <div class="help-icon" style="background: rgba(160,20,124,0.08);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
-        <h4>Donate</h4>
-        <p>Fund a mom's training through our tiered donor program. Every dollar counts.</p>
-        <button class="help-card-btn" onclick="event.stopPropagation(); openModal('donate')">Donate Now</button>
-      </div>
-      <div class="help-card reveal reveal-delay-1" onclick="openModal('volunteer')">
-        <div class="help-icon" style="background: rgba(0,212,255,0.08);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
-        <h4>Volunteer</h4>
-        <p>Share your PM expertise as a mentor and guide a mom through her certification journey.</p>
-        <button class="help-card-btn" onclick="event.stopPropagation(); openModal('volunteer')">Become a Mentor</button>
-      </div>
-      <div class="help-card reveal reveal-delay-2" onclick="openModal('partner')">
-        <div class="help-icon" style="background: rgba(74,0,114,0.08);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
-        <h4>Partner</h4>
-        <p>Partner with us for returnship programs and access a pipeline of skilled PM talent.</p>
-        <button class="help-card-btn" onclick="event.stopPropagation(); openModal('partner')">Partner With Us</button>
-      </div>
-      <div class="help-card reveal reveal-delay-3" onclick="openModal('signup')">
-        <div class="help-icon" style="background: rgba(212,23,122,0.08);"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--pink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
-        <h4>Join as a Mom</h4>
-        <p>Apply for our next training cohort and start your PM career journey today.</p>
-        <button class="help-card-btn" onclick="event.stopPropagation(); openModal('signup')">Apply Now</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== FINAL CTA ========== -->
-<section class="cta-section">
-  <div class="blob blob-3"></div>
-  <div class="container">
-    <div class="cta-inner reveal">
-      <h2>Join Us in Transforming Motherhood Into Professional Power</h2>
-      <p>Whether you're a mom ready to start your PM journey, a mentor who wants to give back, or an organization looking to partner — there's a place for you here.</p>
-      <div class="cta-buttons">
-        <button onclick="openModal('signup')" class="btn-white">
-          Join Our Program
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
-        </button>
-        <button onclick="openModal('volunteer')" class="btn-outline-white">Become a Mentor</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== FOOTER ========== -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
+    <div class="footer-inner">
       <div class="footer-brand">
-        <h3>Moms in Project Management</h3>
-        <p>Empowering mothers through project management education, mentorship, and community support. Because every mom is a project manager.</p>
+        <a href="#" class="nav-logo">
+          <div class="logo-mark">M</div>
+          Moms in PM
+        </a>
+        <p class="footer-tagline">Because Every Mom is a Project Manager. Empowering mothers through free project management education.</p>
       </div>
-      <div class="footer-col">
-        <h4>Programs</h4>
-        <a href="#programs">CAPM Training</a>
-        <a href="#programs">PMP Prep</a>
-        <a href="#programs">Agile Certification</a>
-        <a href="#programs">Mentorship</a>
+      <div>
+        <h4>Links</h4>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#program">Program</a></li>
+          <li><a href="#join">Join</a></li>
+          <li><a href="mailto:hello@momsinpm.org">Contact</a></li>
+        </ul>
       </div>
-      <div class="footer-col">
-        <h4>Organization</h4>
-        <a href="#about">About Us</a>
-        <a href="#team">Our Team</a>
-        <a href="#impact">Impact</a>
-        <a href="#contact">Get Involved</a>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <a href="https://momsinpm.org">momsinpm.org</a>
-        <a href="mailto:hello@momsinpm.org">hello@momsinpm.org</a>
-        <a href="tel:+2348060176821">+234 806 017 6821</a>
+      <div>
+        <h4>Connect</h4>
+        <ul class="footer-links">
+          <li><a href="https://www.linkedin.com/company/moms-in-project-management" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="mailto:hello@momsinpm.org">hello@momsinpm.org</a></li>
+        </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 Moms in Project Management. All rights reserved.</div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Moms in Project Management</span>
+      <span class="footer-social">Founded by <a href="https://www.linkedin.com/company/moms-in-project-management" target="_blank" rel="noopener">Chioma Opara</a></span>
+    </div>
   </div>
 </footer>
 
-<!-- ====================================================================
-     MODAL FORMS — Each opens when user clicks a CTA
-     ==================================================================== -->
-
-<!-- MODAL 1: Program Sign-Up / Apply -->
-<div class="modal-overlay" id="modal-signup" onclick="closeModalOnOverlay(event, 'signup')">
-  <div class="modal">
-    <div class="modal-header-accent"></div>
-    <div class="modal-header">
-      <button class="modal-close" onclick="closeModal('signup')">&times;</button>
-      <div class="modal-icon" style="background: rgba(160,20,124,0.08);">&#127891;</div>
-      <h2>Apply for Our Program</h2>
-      <p>Take the first step toward your PM career. We'll reach out within 48 hours.</p>
-    </div>
-    <div class="modal-body" id="signup-form-area">
-      <form id="form-signup" onsubmit="handleSubmit(event, 'signup')">
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name <span class="required">*</span></label>
-            <input type="text" name="first_name" required placeholder="Your first name">
-          </div>
-          <div class="form-group">
-            <label>Last Name <span class="required">*</span></label>
-            <input type="text" name="last_name" required placeholder="Your last name">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Email Address <span class="required">*</span></label>
-          <input type="email" name="email" required placeholder="you@email.com">
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" name="phone" placeholder="+234 ...">
-        </div>
-        <div class="form-group">
-          <label>Which program interests you? <span class="required">*</span></label>
-          <select name="program" required>
-            <option value="" disabled selected>Select a program</option>
-            <option value="CAPM">CAPM Certification Prep</option>
-            <option value="PMP">PMP Certification Prep</option>
-            <option value="Agile">Agile / Scrum Training</option>
-            <option value="Pilot">3-Week Pilot Cohort</option>
-            <option value="Not Sure">Not sure yet — help me choose</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Tell us about yourself</label>
-          <textarea name="about" placeholder="A bit about your background, goals, and what excites you about PM..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Submit Application</button>
-      </form>
-    </div>
-    <div class="form-success" id="signup-success">
-      <div class="form-success-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-      <h3>Application Received!</h3>
-      <p>Thank you for applying! We're excited about your interest. Check your email — we'll be in touch within 48 hours with next steps.</p>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL 2: Volunteer / Mentor -->
-<div class="modal-overlay" id="modal-volunteer" onclick="closeModalOnOverlay(event, 'volunteer')">
-  <div class="modal">
-    <div class="modal-header-accent"></div>
-    <div class="modal-header">
-      <button class="modal-close" onclick="closeModal('volunteer')">&times;</button>
-      <div class="modal-icon" style="background: rgba(0,212,255,0.08);">&#129309;</div>
-      <h2>Become a Mentor</h2>
-      <p>Share your project management expertise and help a mom launch her career.</p>
-    </div>
-    <div class="modal-body" id="volunteer-form-area">
-      <form id="form-volunteer" onsubmit="handleSubmit(event, 'volunteer')">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Full Name <span class="required">*</span></label>
-            <input type="text" name="full_name" required placeholder="Your full name">
-          </div>
-          <div class="form-group">
-            <label>Email <span class="required">*</span></label>
-            <input type="email" name="email" required placeholder="you@email.com">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>LinkedIn Profile</label>
-          <input type="url" name="linkedin" placeholder="https://linkedin.com/in/...">
-        </div>
-        <div class="form-group">
-          <label>PM Certifications</label>
-          <select name="certification">
-            <option value="" disabled selected>Select your certification(s)</option>
-            <option value="PMP">PMP</option>
-            <option value="CAPM">CAPM</option>
-            <option value="Agile/Scrum">Agile / Scrum Master</option>
-            <option value="PRINCE2">PRINCE2</option>
-            <option value="Multiple">Multiple certifications</option>
-            <option value="Other">Other / In progress</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>How many hours per month can you volunteer?</label>
-          <select name="hours">
-            <option value="" disabled selected>Select availability</option>
-            <option value="2-4">2-4 hours</option>
-            <option value="5-8">5-8 hours</option>
-            <option value="8+">8+ hours</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Why do you want to mentor?</label>
-          <textarea name="motivation" placeholder="Tell us what drives you to give back..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Sign Up to Mentor</button>
-      </form>
-    </div>
-    <div class="form-success" id="volunteer-success">
-      <div class="form-success-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-      <h3>Thank You, Mentor!</h3>
-      <p>Your willingness to give back means the world. We'll match you with a mom in our program and reach out soon with details.</p>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL 3: Donate -->
-<div class="modal-overlay" id="modal-donate" onclick="closeModalOnOverlay(event, 'donate')">
-  <div class="modal">
-    <div class="modal-header-accent"></div>
-    <div class="modal-header">
-      <button class="modal-close" onclick="closeModal('donate')">&times;</button>
-      <div class="modal-icon" style="background: rgba(160,20,124,0.08);">&#128150;</div>
-      <h2>Support a Mom's Future</h2>
-      <p>Your donation directly funds training, certification exams, and mentorship for mothers.</p>
-    </div>
-    <div class="modal-body" id="donate-form-area">
-      <form id="form-donate" onsubmit="handleSubmit(event, 'donate')">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Full Name <span class="required">*</span></label>
-            <input type="text" name="full_name" required placeholder="Your full name">
-          </div>
-          <div class="form-group">
-            <label>Email <span class="required">*</span></label>
-            <input type="email" name="email" required placeholder="you@email.com">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Donation Tier <span class="required">*</span></label>
-          <select name="tier" required>
-            <option value="" disabled selected>Choose a tier</option>
-            <option value="Supporter - $25">Supporter — $25 (course materials)</option>
-            <option value="Champion - $100">Champion — $100 (full training sponsorship)</option>
-            <option value="Hero - $250">Hero — $250 (training + certification exam)</option>
-            <option value="Patron - $500+">Patron — $500+ (full scholarship)</option>
-            <option value="Custom">Custom amount</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Organization (if applicable)</label>
-          <input type="text" name="organization" placeholder="Company or org name">
-        </div>
-        <div class="form-group">
-          <label>Message (optional)</label>
-          <textarea name="message" placeholder="Any special notes or dedication..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Submit Donation Interest</button>
-      </form>
-    </div>
-    <div class="form-success" id="donate-success">
-      <div class="form-success-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-      <h3>Thank You for Your Generosity!</h3>
-      <p>We'll reach out with payment details and a receipt. Your contribution is changing lives — one mom at a time.</p>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL 4: Partner -->
-<div class="modal-overlay" id="modal-partner" onclick="closeModalOnOverlay(event, 'partner')">
-  <div class="modal">
-    <div class="modal-header-accent"></div>
-    <div class="modal-header">
-      <button class="modal-close" onclick="closeModal('partner')">&times;</button>
-      <div class="modal-icon" style="background: rgba(74,0,114,0.08);">&#129309;</div>
-      <h2>Partner With Us</h2>
-      <p>Join 50+ organizations creating returnship and employment pathways for mothers.</p>
-    </div>
-    <div class="modal-body" id="partner-form-area">
-      <form id="form-partner" onsubmit="handleSubmit(event, 'partner')">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Your Name <span class="required">*</span></label>
-            <input type="text" name="contact_name" required placeholder="Your full name">
-          </div>
-          <div class="form-group">
-            <label>Job Title <span class="required">*</span></label>
-            <input type="text" name="title" required placeholder="Your role">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Organization <span class="required">*</span></label>
-          <input type="text" name="organization" required placeholder="Company or organization name">
-        </div>
-        <div class="form-group">
-          <label>Email <span class="required">*</span></label>
-          <input type="email" name="email" required placeholder="work@company.com">
-        </div>
-        <div class="form-group">
-          <label>Partnership Interest <span class="required">*</span></label>
-          <select name="interest" required>
-            <option value="" disabled selected>How would you like to partner?</option>
-            <option value="Returnship Program">Offer returnship positions</option>
-            <option value="Hiring Pipeline">Hire from our talent pipeline</option>
-            <option value="Corporate Sponsorship">Corporate sponsorship</option>
-            <option value="Training Partnership">Co-create training programs</option>
-            <option value="Other">Other — let's talk</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Additional Details</label>
-          <textarea name="details" placeholder="Tell us about your organization and partnership vision..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Submit Partnership Inquiry</button>
-      </form>
-    </div>
-    <div class="form-success" id="partner-success">
-      <div class="form-success-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
-      <h3>Partnership Inquiry Received!</h3>
-      <p>Thank you for your interest in partnering with MIPM. Our team will reach out within 3 business days to discuss next steps.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ====================================================================
-     SCRIPTS
-     ==================================================================== -->
 <script>
-// ========== FORMSPREE CONFIG ==========
-// INSTRUCTIONS: Replace these with your Formspree form IDs.
-// 1. Go to https://formspree.io and create a free account
-// 2. Create 4 forms (one for each CTA)
-// 3. Copy the form ID from each (the part after /f/ in the endpoint URL)
-// 4. Paste them below
-const FORMSPREE_IDS = {
-  signup:    'https://formspree.io/f/xpqkozzk',
-  volunteer: 'https://formspree.io/f/xeevpqgk',
-  donate:    'https://formspree.io/f/xgorpekl',
-  partner:   'https://formspree.io/f/xwvawkoy'
-};
-
-// ========== NAV ==========
-const navbar = document.getElementById('navbar');
+// Nav scroll effect
+const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 50);
+  nav.classList.toggle('scrolled', window.scrollY > 20);
 });
 
-const mobileToggle = document.getElementById('mobileToggle');
-const navLinks = document.getElementById('navLinks');
-mobileToggle.addEventListener('click', () => {
-  mobileToggle.classList.toggle('active');
-  navLinks.classList.toggle('active');
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  mobileMenu.classList.toggle('open');
 });
-navLinks.querySelectorAll('a').forEach(link => {
+document.querySelectorAll('.mobile-link').forEach(link => {
   link.addEventListener('click', () => {
-    mobileToggle.classList.remove('active');
-    navLinks.classList.remove('active');
+    hamburger.classList.remove('active');
+    mobileMenu.classList.remove('open');
   });
 });
 
-// ========== SCROLL REVEAL ==========
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
+// Scroll reveal with IntersectionObserver
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
-
-// ========== PROGRESS BAR ==========
-setTimeout(() => {
-  document.getElementById('progressFill').style.width = '100%';
-}, 800);
-
-// ========== SMOOTH SCROLL ==========
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-// ========== MODAL SYSTEM ==========
-function openModal(type) {
-  const modal = document.getElementById('modal-' + type);
-  if (modal) {
-    // Reset to form view (hide success, show form)
-    const formArea = document.getElementById(type + '-form-area');
-    const successArea = document.getElementById(type + '-success');
-    if (formArea) formArea.style.display = 'block';
-    if (successArea) successArea.classList.remove('show');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-}
-
-function closeModal(type) {
-  const modal = document.getElementById('modal-' + type);
-  if (modal) {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-}
-
-function closeModalOnOverlay(event, type) {
-  if (event.target === event.currentTarget) closeModal(type);
-}
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.active').forEach(modal => {
-      modal.classList.remove('active');
-    });
-    document.body.style.overflow = '';
-  }
-});
-
-// ========== FORM SUBMISSION VIA FORMSPREE ==========
-async function handleSubmit(event, formType) {
-  event.preventDefault();
-
-  const form = event.target;
-  const submitBtn = form.querySelector('.form-submit');
-  const originalText = submitBtn.textContent;
-
-  // Disable button and show loading
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
-
-  const formspreeId = FORMSPREE_IDS[formType];
-  const formData = new FormData(form);
-
-  // Add a hidden field to identify which form it came from
-  formData.append('_form_type', formType);
-
-  try {
-    const response = await fetch('https://formspree.io/f/' + formspreeId, {
-      method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if (response.ok) {
-      // Show success message
-      document.getElementById(formType + '-form-area').style.display = 'none';
-      document.getElementById(formType + '-success').classList.add('show');
-      form.reset();
-
-      // Auto-close modal after 5 seconds
-      setTimeout(() => { closeModal(formType); }, 5000);
-    } else {
-      alert('Something went wrong. Please try again or email us at hello@momsinpm.org');
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
     }
-  } catch (error) {
-    // Fallback: open pre-filled email
-    const labels = {
-      signup: 'Program Application',
-      volunteer: 'Volunteer / Mentor Sign-Up',
-      donate: 'Donation Interest',
-      partner: 'Partnership Inquiry'
-    };
-    const data = Object.fromEntries(formData.entries());
-    const subject = encodeURIComponent('MIPM: ' + labels[formType]);
-    const body = encodeURIComponent(
-      Object.entries(data)
-        .filter(([key]) => !key.startsWith('_'))
-        .map(([key, value]) => key.replace(/_/g, ' ').toUpperCase() + ': ' + value)
-        .join('\n\n')
-    );
-    window.open('mailto:hello@momsinpm.org?subject=' + subject + '&body=' + body, '_blank');
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.textContent = originalText;
-  }
-}
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealElements.forEach(el => revealObserver.observe(el));
+
+// Progress bar animation
+const progressFill = document.getElementById('progressFill');
+const heroCard = document.getElementById('heroCard');
+const progressObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        progressFill.style.width = (1 / 12 * 100).toFixed(1) + '%';
+      }, 600);
+      progressObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+progressObserver.observe(heroCard);
 </script>
 </body>
 </html>
